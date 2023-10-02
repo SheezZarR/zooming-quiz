@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {render} from 'react-dom'
 import QuestContainer from "./components/question";
 import Button from "./components/button";
 import { createAssistant, createSmartappDebugger } from '@salutejs/client';
 
-
 const Home = function() {
+    
+    const [state, setState] = useState({})
+    const [recoveryState, setRecoveryState] = useState({})
+
     const initialize = (getState, getRecoveryState) => {
         if (process.env.NODE_ENV === 'development') {
             return createSmartappDebugger({
                 // Токен из Кабинета разработчика
-                token: 'token',
+                token: process.env.REACT_APP_SBER_TOKEN,
                 // Пример фразы для запуска смартапа
                 initPhrase: 'Хочу попкорн',
                 // Текущее состояние смартапа
@@ -59,8 +62,8 @@ const Home = function() {
             },
             {}
             )
-        }
     }
+    
 
 
     return (
