@@ -1,70 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import {render} from 'react-dom'
 import QuestContainer from "./components/question";
 import Button from "./components/button";
 import { createAssistant, createSmartappDebugger } from '@salutejs/client';
+import { QuizAction, reducer } from './storage';
+
+
+const initializeAssistant = (getState: any) => {
+    if (process.env.NODE_ENV === "development") {
+        return createSmartappDebugger({
+            token: process.env.REACT_APP_SBER_TOKEN ? process.env.REACT_APP_SBER_TOKEN : "" ,
+            initPhrase: "Люблю квизы",
+            getState
+
+        })
+    }
+
+    return createAssistant({ getState })
+}
+
 
 const Home = function() {
-    
-    const [state, setState] = useState({})
-    const [recoveryState, setRecoveryState] = useState({})
+    const [appState, dispatch] = useReducer(reducer, {question_num: 0})
+    const assistantRef = useRef<ReturnType <typeof createAssistant>>()
 
-    const initialize = (getState, getRecoveryState) => {
-        if (process.env.NODE_ENV === 'development') {
-            return createSmartappDebugger({
-                // Токен из Кабинета разработчика
-                token: process.env.REACT_APP_SBER_TOKEN,
-                // Пример фразы для запуска смартапа
-                initPhrase: 'Хочу попкорн',
-                // Текущее состояние смартапа
-                getState,
-                // Состояние смартапа, с которым он будет восстановлен при следующем запуске
-                getRecoveryState,
-                // Необязательные параметры панели, имитирующей панель на реальном устройстве
-                nativePanel: {
-                    // Стартовый текст в поле ввода пользовательского запроса
-                    defaultText: 'Покажи что-нибудь',
-                    // Позволяет включить вид панели, максимально приближенный к панели на реальном устройстве
-                    screenshotMode: false,
-                    // Атрибут `tabindex` поля ввода пользовательского запроса
-                    tabIndex: -1,
-                },
-            });
-        }
-    
-          // Только для среды production
-        return createAssistant({ getState, getRecoveryState });
-    }
-    
-    const assistant = initialize(() => state, () => recoveryState);
-    assistant.on("data", (command) => {
-        console.log(command)
+    useEffect(() => {
+        assistantRef.current = initializeAssistant(() => {})
+        assistantRef.current.on("data", ({action}: any) => {
+            console.log("меем")
+        })  
     })
-    
-
-    const handleOnClick = () => {
-        assistant.sendData({action: {type: "action_name", payload: {param: 1}}})
-    }
-
-    const handleOnRefreshClick = () => {
-        
-        const unsubscribe = assistant.sendAction(
-            {type: 'action_name', payload: { param: 1 }},
-            (data: { 
-                type: string, 
-                payload: Record<string, unknown>
-            }) => {
-                console.log(data.type, data.payload)
-                unsubscribe();
-            },
-            (error: { code: number, description: string }) => {
-                console.log(error.code, error.description)
-            },
-            {}
-            )
-    }
-    
-
 
     return (
         <div style={styles.container}>
