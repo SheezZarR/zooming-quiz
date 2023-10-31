@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import QuestContainer from "./components/question";
 import Button from "./components/button";
 import { createAssistant, createSmartappDebugger } from '@salutejs/client';
-import { QuizAction, reducer } from './storage';
+import { QuizAction, reducer } from './storage/storage';
 
 
 const initializeAssistant = (getState: any) => {
