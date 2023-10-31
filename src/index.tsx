@@ -10,9 +10,9 @@ const initializeAssistant = (getState: any) => {
     if (process.env.NODE_ENV === "development") {
         return createSmartappDebugger({
             token: process.env.REACT_APP_SBER_TOKEN ? process.env.REACT_APP_SBER_TOKEN : "" ,
-            initPhrase: "Люблю квизы",
+            initPhrase: "Включи Квиз о Мире",
             getState
-
+            
         })
     }
 
@@ -30,7 +30,7 @@ const Home = function() {
             console.log("меем")
         })  
     })
-
+    console.log(assistantRef.current)
     return (
         <div style={styles.container}>
             <QuestContainer>
