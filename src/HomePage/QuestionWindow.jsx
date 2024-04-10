@@ -29,4 +29,21 @@ class QuestionWindow extends React.Component {
     }
 }
 
+
+const Button = ({text, onClick}) => {
+    const handleOnClick = () => {
+        onClick();
+    }
+    
+    return (
+        <li
+            onClick={onClick}
+            key={text}
+            className={`answer-item' ${answerIdx === index && isCorrect ? 'correct' : answerIdx === index && !isCorrect ? 'incorrect' : ''}`}> 
+            {text} 
+        </li>
+    )
+
+}
+
 export default QuestionWindow
