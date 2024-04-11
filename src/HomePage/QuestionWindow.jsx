@@ -3,6 +3,7 @@ import './styles.css'
 
 class QuestionWindow extends React.Component {
     render() {
+        console.log("Question Window Props", this.props)
         const { question, step, onClick, answerIdx, isCorrect, isClickable } = this.props;
 
         return (
@@ -15,14 +16,16 @@ class QuestionWindow extends React.Component {
                 </h2>
                 <ul className='answer-list'>
                     {question.answers.map((text, index) => (
-                        <li
-                            onClick={isClickable ? () => onClick(index) : undefined}
-                            key={text}
-                            className={`answer-item ${answerIdx === index && isCorrect ? 'correct' : answerIdx === index && !isCorrect ? 'incorrect' : ''}`}
-                        >
-                            {text}
-                        </li>
-                    ))}
+                        <Button
+                            onClick={onClick}
+                            id={index}
+                            text={text}
+                            isCorrect={isCorrect}
+                        />
+                        
+                        )
+                    )
+                }
                 </ul>
             </div>
         );
@@ -30,17 +33,25 @@ class QuestionWindow extends React.Component {
 }
 
 
-const Button = ({text, onClick}) => {
-    const handleOnClick = () => {
-        onClick();
+function Button({
+    onClick,
+    id,
+    text,
+    isCorrect,
+}) {
+
+    var appendClass = ""
+
+    if (isCorrect !== null) {
+        appendClass = isCorrect ? "correct" : "incorrect"
     }
-    
+
     return (
         <li
             onClick={onClick}
-            key={text}
-            className={`answer-item' ${answerIdx === index && isCorrect ? 'correct' : answerIdx === index && !isCorrect ? 'incorrect' : ''}`}> 
-            {text} 
+            id={id}
+            className={"answer-item " + appendClass}
+        > {text}
         </li>
     )
 
