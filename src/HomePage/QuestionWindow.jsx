@@ -5,14 +5,26 @@ import './styles.css'
 class QuestionWindow extends React.Component {
     render() {
         console.log("Question Window Props", this.props)
-        const { question, step, onClick, answerIdx, isCorrect, isClickable } = this.props;
+        const { 
+            totalQuestions,
+            totalCorrect,
+            question, 
+            step, 
+            onClick, 
+            onClickSkip,
+            answerIdx, 
+            isCorrect, 
+            isClickable 
+        } = this.props;
         
         const confettiSource = {
             x: window.innerWidth / 2,
-            y: 85,
+            y: window.innerHeight / 4,
             h: 0,
             w: 0,
         }
+
+        var disabledButton = isClickable? "": " disabled"
         return (
             <>
             <Confetti
@@ -26,9 +38,12 @@ class QuestionWindow extends React.Component {
                 }}
             /> 
             <div className='question-container'>
-                <h1 style={{ textAlign: 'left', fontSize: '13px' }}>
-                    Вопрос {step}/20
-                </h1>
+                <div className='card-header'>
+                    <h1 style={{ textAlign: 'left', fontSize: '13px' }}>
+                        Вопрос {step + 1}/{totalQuestions}
+                    </h1>
+                    <button className={`skip-button` + disabledButton} onClick={onClickSkip}>Пропустить</button>
+                </div>
                 <h2>
                     {question.title}
                 </h2>
@@ -46,6 +61,10 @@ class QuestionWindow extends React.Component {
                     )
                 }
                 </ul>
+
+                <QuestionFooter 
+                    totalCorrect={totalCorrect}
+                />
             </div>
 
             </>
@@ -82,4 +101,13 @@ function Button({
 
 }
 
+
+function QuestionFooter({totalCorrect}) {
+
+    return (
+        <div className='card-footer'>
+            <div className='correct-stat flex-left'>ВЕРНО: {totalCorrect}</div>
+        </div>
+    )
+}
 export default QuestionWindow

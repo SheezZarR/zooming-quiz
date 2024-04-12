@@ -135,7 +135,7 @@ class App extends React.Component {
     }
 
     sendDataToAssistant(data) {
-      console.log("sendDataToAssistant", data);
+      console.log("sendDataToAssistant", data);  
       this.assistant.sendData({action: {action_id : "start"}})
     }
     
@@ -148,8 +148,23 @@ class App extends React.Component {
 
       this.delayedNextQuestion(step)
     }
-  
-    onClickStartGameButton = () => { this.startGame()}
+    
+    skipQuestion() {
+      this.setState({
+          isClickable : true,
+          answerIdx: null,
+          isCorrect: null,
+          step: this.state.step + 1
+        });
+
+    //this.assistant.sendData({action : {action_id: "interrupt"}})
+
+        let question_state = "quest" + (this.state.step + 2).toString()
+        this.assistant.sendData({action : {action_id : question_state}})
+    }
+
+    onClickStartGameButton = (_) => { this.startGame()}
+    onClickSkip = (_) => {this.skipQuestion()}
 
     onClick = (evt) => {
       const { step } = this.state;
@@ -167,22 +182,32 @@ class App extends React.Component {
       const question = questions[step];
 
       if (!showQuestions) {
-          return <div className='container'>
+          return (
+        <div className='container'>
+          <div className='menu-text'>
+            <h1>Викторина из различных вопросов</h1>
+            <p>Tемы: 'Бренды' и 'Природа'</p>
+          </div>
+          
           <button
             className='start-button'
             onClick={this.onClickStartGameButton}
-        >
+          >
           Начать!
-        </button>
+          </button>
         </div> 
+      )
       }
   
       else if (step !== questions.length) {
         return (
           <QuestionWindow
+            totalQuestions={questions.length}
+            totalCorrect={0 || (this.state.brandCorrect + this.state.natureCorrect)}
             question={question}
             step={step}
             onClick={this.onClick}
+            onClickSkip={this.onClickSkip}
             answerIdx={answerIdx}
             isCorrect={isCorrect}
             isClickable={isClickable}
@@ -193,6 +218,7 @@ class App extends React.Component {
           <Result
             brandCorrect={brandCorrect}
             natureCorrect={natureCorrect}
+            onClickStartGame={this.onClickStartGameButton}
           />
         );
       }

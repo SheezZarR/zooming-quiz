@@ -4,11 +4,9 @@
     border-radius: 30px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     padding: 30px;
-    margin: 50px auto;
+    margin: auto;
     text-align: center;
-    width: 400px;
-    height: 400px;
-
+    width: 25rem;
 }
 
 .answer-list {
@@ -23,7 +21,12 @@
     padding: 10px;
     cursor: pointer;
     text-align: left;
-    transition: background-color 0.5s;
+    transition: background-color 0.133s;
+
+}
+
+.answer-item:hover {
+    background-color: #e3e3e3;
 }
 
 .disabled {
@@ -42,13 +45,14 @@
 
 .result-container {
     background-color: white;
+    display: flex;
+    flex-direction: column;
     border-radius: 30px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
     padding: 30px;
     margin: 50px auto;
     text-align: center;
     width: 400px;
-    height: 300px;
 }
 
 .emoji {
@@ -72,14 +76,78 @@
     transition: all 0.2s ease-in-out;
     width: 400px;
     height: 50px;
+    flex-grow:1;
   }
 
-  .container {
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+}
+
+.menu-text {
+    padding: 0rem 1rem;
+    margin: 1rem;
+    max-width: 20rem;
+    align-self: start;
+}
+  
+.card-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.skip-button {
+    background-color: white;
+    color: #333333;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.133s;
+}
+
+.skip-button:hover {
+    background-color: #e3e3e3;
+}
+
+.card-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 9px;
+}
+
+.results-inner {
     display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-  }
-  
-  
+    flex-direction: column;
+}
+
+.results-inner > h1 {
+    margin: 0;
+}
+
+.results-inner > ul {
+    align-self: center;
+}
+
+.flex-left {
+    justify-self: start;
+}
+
+.flex-right {
+    justify-self: end;
+}
+
+.correct-stat {
+    color: green;
+    font-weight: bold;
+}
+
+.incorrect-stat {
+    color: red;
+    font-weight: bold;
+}
