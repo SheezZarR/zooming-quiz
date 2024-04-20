@@ -186,7 +186,10 @@ export class App extends React.Component {
       this.delayedNextQuestion(step)
     }
     
-    onClickStartGameButton = (_) => { this.startGame()}
+    onClickStartGameButton = (_) => { 
+      this.assistant.cancelTts()
+      this.startGame()
+    }
     onClickSkip = (_) => {
       this.setState({
         isClickable : true,
@@ -194,12 +197,14 @@ export class App extends React.Component {
         isCorrect: null,
         step: this.state.step + 1
       });
+      this.assistant.cancelTts()
 
       let next_question = "quest" + (this.state.step + 2).toString()
       this.assistant.sendData({action : {action_id : next_question}})
     }
 
     onClickRepeatQuestion = (_) => {
+      this.assistant.cancelTts()
       let current_question = "quest" + (this.state.step + 1).toString()
 
       this.assistant.sendData({action : {action_id : current_question}})
