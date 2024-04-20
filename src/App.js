@@ -1,13 +1,14 @@
 import React from "react"
 import { createSmartappDebugger, createAssistant } from "@salutejs/client";
-
+import { useSpatnavInitialization, useSection, useDefaultSectionFocus } from '@salutejs/spatial';
+import  FuseIndex from "fuse.js"
 
 import questions from "./consts";
 import QuestionWindow from "./HomePage/QuestionWindow";
 import Result from "./HomePage/Result";
 
 
-const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI5MmViZDBhNy0xY2JiLTQxMjMtOTM5ZC1kNDUwZTUyZGFhMDYiLCJzdWIiOiJjZGE2NDZlMDc5NDA3MjNkMDk1NDQ5ZjRiNjNjNDc1ZGMyNzBlZTExNmEwN2Q0ZWFjNGNlYzY2ZGRiMmZmYzlhNTM5YmU5MjcwMDQyNjI5OCIsImlzcyI6IktFWU1BU1RFUiIsImV4cCI6MTcxMjk1NzI5OSwiYXVkIjoiVlBTIiwidXNyIjoiOGM3ODAyMDgtYWEzMC00N2EwLWJlZWYtYTAzMzhiMjk3OWVhIiwiaWF0IjoxNzEyODcwODg5LCJzaWQiOiI0OTI5NjljNC1iY2FmLTRhMjAtOTdmYy0wYTJhMzA1NzMyNGYifQ.kCNonkjOxr4dzG7u1ZBvWC6XyCudaJgZMyO8wZspq1QgIXYvi83R5KY_El_CKmmbyODcEAbL91lNZ3drp0yOFjcs7tz72ggBWZU8LJm7z3LavizHciG_mj1IRtFHPcOt9kCgvQj6UGR87VEWc03x5J3nB1lUeorirD7QqBkZ2khpDRGr2ewWIXOb1yE4IUVNTj8SND0CuaD8y6-_jtiOzNGSLwz5BxJAftVozREwK_Bqp_XatRDocJIyXeyYZdrpVHBQsM7su37L8tN2McVGZB_mUGEsF3YdNy5diABXYkhywj6Vla5jz01aUxlNfanyuUEv2h-KNTONJm9Vue62br3rOl0rGSgROR_nzUpnwZrptfljnqwINPgcE-UaIx-Tk2q_2_bm9SUX2BlBMuywpg8GTvMkuutGJcKQbcl248TU-7sqIbemheXBzDq5NNbLy02CzimZHp3OU3kWsT_sPPp5Vn9ElZ5iO2aBO4CPpXdUX4o_WRYATXZkV2PT6DB5A8xJGPcwcnKv59cm8PHNb0Tbv8m6Mm6J3pw_EsPqEdQYW_wyDYjmX0qbqhT78fKt90TCUL-RptzabH6QRBAXcbHX7CRa5XfNdd4df2OpmQNBFclDlvSQIWykquqhHNO5otVs93pa6nrG97A2Shp5fuc97jOJAHCz_PNAz8D-v4I"
+const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI1MGE5NThmZi04ZjdlLTQxNTUtYmEwNy0yMjE0MzEzNGVmMDAiLCJzdWIiOiJjZGE2NDZlMDc5NDA3MjNkMDk1NDQ5ZjRiNjNjNDc1ZGMyNzBlZTExNmEwN2Q0ZWFjNGNlYzY2ZGRiMmZmYzlhNTM5YmU5MjcwMDQyNjI5OCIsImlzcyI6IktFWU1BU1RFUiIsImV4cCI6MTcxMzYyOTQ1MCwiYXVkIjoiVlBTIiwidXNyIjoiOGM3ODAyMDgtYWEzMC00N2EwLWJlZWYtYTAzMzhiMjk3OWVhIiwiaWF0IjoxNzEzNTQzMDQwLCJzaWQiOiI4NmFkZWYzYS05NTEwLTRjYTgtYTc3ZC1iYmU0MTNmZmRjZmMifQ.Wm26q7KThqWQaqng3WYRH1AiJ97B7QliEQnL85dv-3yUyvUaWOtihA9xxjIoYGsBpWi0awm4HAiDK5c5s-KU3HkA1NK8cW9xtewkhujWn_PwMYwiHMWcMnWAId8mVaOletJuXXLAOuJ9qizSAJ2a8MihSB5b45fG6_ufXk8NMm4qI0mxs0NCvN_ejc_s7Sjnq4gSMOnHK3NrIp0WTeaqHY8HN34SMBaQrK5rx_bstruNOZj-4lqUQvARSk89qAJwrwEayUvuWU-EWpPGAhB7e-PeHgMELP5BqlxCopcV6bBMmz4t0uJOt6zqL9iTYrVJfGEV47j1NgwyAgQVsfggKjhu5JO18if3IGysFlBHn8BawZqFWdvECfxNsTIZWaJy2p0VNVEfuAQ9SoEVxOc7fXmmYcKhe1wSXDORuSfo8F-RbfJ1n3e1gsK8eWkGNHGBcjn-qcfD6viC20tdMD3DyYDahzcaLqGHX0RIHDdq-AfXTyCdukhp_It80KrDt4iob7_p_p5eIm0yzJVcg6ycLDheQ_rkmYPVsI7w6wojrdBmmLC-5Q2Ug2SumKcRvBj-vrkJ7qGJfb2vO_o5SX-Z8j9A-PiV5ufbdluRYzAHkEVGqapJelqpTUKXO54dA4L5ENP1BZdPitOxgh-B3J9bqdbPu45Dns0GjLlWZAd7dxo"
 
 function initializeAssistant(getState){
   if (typeof window === 'undefined') {
@@ -26,19 +27,34 @@ function initializeAssistant(getState){
 }
 
 
+// https://infinum.com/blog/how-to-use-react-hooks-in-class-components/
+export const AppWithNav = () => {
+  useSpatnavInitialization();
+    
+  const [sectionProps] = useSection('Main');
+  useDefaultSectionFocus('Main');
 
-class App extends React.Component {
+  return <App {...sectionProps}/>;
+  
+};
+
+
+export class App extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         step: 0,
-        answerIdx: null,
+        clickedIndex: null,
         isCorrect: null,
         brandCorrect: 0,
         natureCorrect: 0,
         isClickable : false,
         showQuestions: false,
       };
+
+      // Fuzzy searcher
+      this.fuse = new FuseIndex([], {isCaseSensitive: false})
+
 
       this.assistant = initializeAssistant(() => this.getStateForAssistant())
       this.assistant.on("data", (payload) => {
@@ -72,16 +88,18 @@ class App extends React.Component {
       this.assistant.sendData({action : {action_id : "quest1"}})
     }
 
-    stepUpdate(step, isCorrect) {
+    stepUpdate(step, clickedIndex, isCorrect) {
       if (step % 2 === 0) {
         this.setState({
           isCorrect: isCorrect,
+          clickedIndex: clickedIndex,
           brandCorrect: this.state.brandCorrect + (isCorrect? 1 : 0),
           isClickable: false
         })
       } else {
         this.setState({
           isCorrect: isCorrect,
+          clickedIndex: clickedIndex,
           natureCorrect: this.state.natureCorrect + (isCorrect? 1 : 0),
           isClickable: false
         })
@@ -102,6 +120,24 @@ class App extends React.Component {
       }, delay);
     }
 
+    guessAnswerIndex(str) {
+      
+      console.log("Calling fuse")
+      this.fuse.setCollection([str])
+
+      for (let i = 0; i < 4; i += 1){
+        let result = this.fuse.search(questions[this.state.step].answers[i])
+        
+        if (result.length !== 0) {
+          console.log("Fuse search result: ", i)
+          return i
+        }
+        
+      }
+
+      return null
+    }
+
     handleSmartAppData(action) {
       if (!action) return;
 
@@ -113,7 +149,8 @@ class App extends React.Component {
           break;
 
         case "answer":
-          this.stepUpdate(this.state.step, action.values.isCorrect)
+          const guessedIndex = this.guessAnswerIndex(action.text)
+          this.stepUpdate(this.state.step, guessedIndex, action.values.isCorrect)
           this.delayedNextQuestion(this.state.step)
         break;
 
@@ -139,8 +176,8 @@ class App extends React.Component {
       this.assistant.sendData({action: {action_id : "start"}})
     }
     
-    processClickAnswer(step, isCorrect) {
-      this.stepUpdate(step, isCorrect)
+    processClickAnswer(step, clickedIndex, isCorrect) {
+      this.stepUpdate(step, clickedIndex, isCorrect)
      
       this.assistant.sendData(
         {action: {action_id: isCorrect? "correct" : "incorrect"}}
@@ -149,22 +186,24 @@ class App extends React.Component {
       this.delayedNextQuestion(step)
     }
     
-    skipQuestion() {
+    onClickStartGameButton = (_) => { this.startGame()}
+    onClickSkip = (_) => {
       this.setState({
-          isClickable : true,
-          answerIdx: null,
-          isCorrect: null,
-          step: this.state.step + 1
-        });
+        isClickable : true,
+        answerIdx: null,
+        isCorrect: null,
+        step: this.state.step + 1
+      });
 
-    //this.assistant.sendData({action : {action_id: "interrupt"}})
-
-        let question_state = "quest" + (this.state.step + 2).toString()
-        this.assistant.sendData({action : {action_id : question_state}})
+      let next_question = "quest" + (this.state.step + 2).toString()
+      this.assistant.sendData({action : {action_id : next_question}})
     }
 
-    onClickStartGameButton = (_) => { this.startGame()}
-    onClickSkip = (_) => {this.skipQuestion()}
+    onClickRepeatQuestion = (_) => {
+      let current_question = "quest" + (this.state.step + 1).toString()
+
+      this.assistant.sendData({action : {action_id : current_question}})
+    }
 
     onClick = (evt) => {
       const { step } = this.state;
@@ -173,56 +212,73 @@ class App extends React.Component {
       const index = parseInt(evt.target.id)
       const isCorrect = (question.correct === index)
       
-      this.processClickAnswer(step, isCorrect)
+      this.processClickAnswer(step, index, isCorrect)
       
     }
 
     render() {
       const { step, answerIdx, isCorrect, brandCorrect, natureCorrect, isClickable, showQuestions} = this.state;
       const question = questions[step];
-
+      
+      
+      
+      
       if (!showQuestions) {
           return (
-        <div className='container'>
-          <div className='menu-text'>
-            <h1>Викторина из различных вопросов</h1>
-            <p>Tемы: 'Бренды' и 'Природа'</p>
+          <div id={this.props.id} className={this.props.className}>
+            <div className='container'>
+              <div className='menu-text'>
+                <h1>Викторина из различных вопросов</h1>
+                <p>Tемы: 'Бренды' и 'Природа'</p>
+              </div>
+              
+              <button
+                className='sn-section-item button'
+                onClick={this.onClickStartGameButton}
+              >
+              Начать!
+              </button>
+            </div> 
           </div>
-          
-          <button
-            className='start-button'
-            onClick={this.onClickStartGameButton}
-          >
-          Начать!
-          </button>
-        </div> 
       )
       }
   
       else if (step !== questions.length) {
         return (
-          <QuestionWindow
-            totalQuestions={questions.length}
-            totalCorrect={0 || (this.state.brandCorrect + this.state.natureCorrect)}
-            question={question}
-            step={step}
-            onClick={this.onClick}
-            onClickSkip={this.onClickSkip}
-            answerIdx={answerIdx}
-            isCorrect={isCorrect}
-            isClickable={isClickable}
-          />
+          <div 
+            id={this.props.id}
+            className={this.props.className}
+          >
+            <QuestionWindow
+              totalQuestions={questions.length}
+              totalCorrect={0 || (this.state.brandCorrect + this.state.natureCorrect)}
+              question={question}
+              step={step}
+              onClick={this.onClick}
+              onClickRepeatQuestion={this.onClickRepeatQuestion}
+              onClickSkip={this.onClickSkip}
+              onClickStartGame={this.onClickStartGameButton}
+              clickedIndex={this.state.clickedIndex}
+              isCorrect={isCorrect}
+              isClickable={isClickable}
+            />
+          </div>
         );
       } else {
         return (
-          <Result
-            brandCorrect={brandCorrect}
-            natureCorrect={natureCorrect}
-            onClickStartGame={this.onClickStartGameButton}
-          />
+          <div 
+            id={this.props.id} 
+            className={this.props.className}
+          >
+            <Result
+              brandCorrect={brandCorrect}
+              natureCorrect={natureCorrect}
+              onClickStartGame={this.onClickStartGameButton}
+            />
+          </div>
         );
       }
     }
-  }
-  
-  export default App;
+}
+
+export default AppWithNav;

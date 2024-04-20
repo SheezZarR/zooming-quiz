@@ -1,12 +1,25 @@
-.question-container {
-    background-color: white;
-    border: 0px solid black;
-    border-radius: 30px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    margin: auto;
+.container {
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    width: 25rem;
+    justify-content: center;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+    padding: 2rem;
+  }
+
+.button {
+    display: block;
+    margin: 0 auto;
+    padding: 0.5em 1.5em;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+    flex-grow:1;
 }
 
 .answer-list {
@@ -23,6 +36,10 @@
     text-align: left;
     transition: background-color 0.133s;
 
+}
+
+.answer-item:active {
+    background-color: #d3d3d3;
 }
 
 .answer-item:hover {
@@ -43,17 +60,7 @@
     transition: background-color 1s;
 }
 
-.result-container {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    border-radius: 30px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    margin: 50px auto;
-    text-align: center;
-    width: 400px;
-}
+
 
 .emoji {
     font-size: 48px;
@@ -62,32 +69,6 @@
 
 .result-text {
     font-size: 30px;
-}
-
-.start-button {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    border-radius: 15px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease-in-out;
-    width: 400px;
-    height: 50px;
-    flex-grow:1;
-  }
-
-.container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
-  padding: 2rem;
 }
 
 .menu-text {
@@ -100,6 +81,12 @@
 .card-header {
     display: grid;
     grid-template-columns: 2fr 1fr;
+}
+
+.card-header-btns {
+    display: flex;
+    gap: 1em;
+
 }
 
 .skip-button {
