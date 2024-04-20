@@ -53,7 +53,13 @@ export class App extends React.Component {
       };
 
       // Fuzzy searcher
-      this.fuse = new FuseIndex([], {isCaseSensitive: false})
+      this.fuse = new FuseIndex(
+        [], 
+        {
+          isCaseSensitive: false,
+          includeScore: true
+        }
+      )
 
 
       this.assistant = initializeAssistant(() => this.getStateForAssistant())
@@ -125,17 +131,26 @@ export class App extends React.Component {
       console.log("Calling fuse")
       this.fuse.setCollection([str])
 
+      var output = {
+        score: 1,
+        ind: null,
+      }
+
       for (let i = 0; i < 4; i += 1){
         let result = this.fuse.search(questions[this.state.step].answers[i])
         
-        if (result.length !== 0) {
-          console.log("Fuse search result: ", i)
-          return i
+        console.log("Fuse result: ", i, result, output)
+        if (
+          result.length > 0 &&
+          result[0].score < output.score
+        ) {
+          output.score = result[0].score
+          output.ind = i
+          console.log("Fuse output update: ", output.ind)
         }
-        
       }
 
-      return null
+      return output.ind
     }
 
     handleSmartAppData(action) {
@@ -190,6 +205,7 @@ export class App extends React.Component {
       this.assistant.cancelTts()
       this.startGame()
     }
+
     onClickSkip = (_) => {
       this.setState({
         isClickable : true,
@@ -211,6 +227,7 @@ export class App extends React.Component {
     }
 
     onClick = (evt) => {
+      this.assistant.cancelTts()
       const { step } = this.state;
       const question = questions[step];
 
@@ -224,9 +241,6 @@ export class App extends React.Component {
     render() {
       const { step, answerIdx, isCorrect, brandCorrect, natureCorrect, isClickable, showQuestions} = this.state;
       const question = questions[step];
-      
-      
-      
       
       if (!showQuestions) {
           return (
