@@ -23,16 +23,22 @@
     flex-grow:1;
 }
 
+.button:hover {
+    background-color: #e3e3e3;
+}
+
 .answer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
     list-style-type: none;
     padding: 0;
 }
 
 .answer-item {
-    border: 2px solid rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    margin-bottom: 15px;
-    padding: 10px;
+    border: 0.07em solid rgba(0, 0, 0, 0.3);
+    border-radius: 0.25em;
+    padding: 0.5em;
     cursor: pointer;
     text-align: left;
     transition: background-color 0.133s;
@@ -60,7 +66,6 @@
     background-color: red;
     transition: background-color 1s;
 }
-
 
 
 .emoji {
@@ -91,10 +96,15 @@
     }
 }
 
+.card-header-title {
+    font-size: 13px;
+    text-align: left;
+    align-self: center;
+}
+
 .card-header-btns {
     display: flex;
     gap: 1em;
-
 }
 
 .skip-button {
@@ -106,8 +116,9 @@
     transition: background-color 0.133s;
 }
 
-.skip-button:hover {
-    background-color: #e3e3e3;
+.container > h2 {
+    max-width: 40ch;
+    align-self: center;
 }
 
 .card-footer {

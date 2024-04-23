@@ -44,7 +44,7 @@ export function QuestionWindow (props){
         /> 
         <div className='container question-container'>
             <div className='card-header'>
-                <h1 style={{ textAlign: 'left', fontSize: '13px' }}>
+                <h1 className='card-header-title'>
                     Вопрос {step + 1}/{totalQuestions}
                 </h1>
                 <div className='card-header-btns'>

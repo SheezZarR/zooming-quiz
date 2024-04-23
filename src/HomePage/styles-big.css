@@ -1,0 +1,23 @@
+/* 
+По ссылке можно провалиться в другие ссылки, чтобы найти размеры экранов для адаптивной
+https://developers.sber.ru/docs/ru/va/about/salute-apps/devices?utm_source=support 
+
+*/
+
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
+    html {
+        font-size: 32px;
+    }
+
+    h1, h2 {
+        font-size: 1.5rem;
+    }
+
+    p, button, div, .card-header-title {
+        font-size: 0.75rem !important;
+    }
+
+    .answer-item {
+        font-size: 1.25rem;
+    }
+}

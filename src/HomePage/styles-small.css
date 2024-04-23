@@ -1,0 +1,17 @@
+@media screen and (max-width: 512px)  {
+    html {
+        font-size: 12px;
+    }
+
+    h1, h2 {
+        font-size: 1.25rem;
+    }
+
+    p, button, div {
+        font-size: 0.75rem;
+    }
+
+    .card-header-title {
+        font-size: 0.75rem !important;
+    }
+}

@@ -1,0 +1,35 @@
+@media screen and (min-width: 1280px) and (max-width: 1920px) and (orientation: landscape)  {
+    html {
+        font-size: 20px;
+    }
+
+    h1, h2 {
+        font-size: 1.25rem;
+    }
+
+    p, button, div {
+        font-size: 0.75rem;
+    }
+
+    .card-header-title {
+        font-size: 0.75rem !important;
+    }
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait)  {
+    html {
+        font-size: 32px;
+    }
+
+    h1, h2 {
+        font-size: 1.25rem;
+    }
+
+    p, button, div {
+        font-size: 0.75rem;
+    }
+
+    .card-header-title {
+        font-size: 0.75rem !important;
+    }
+}
