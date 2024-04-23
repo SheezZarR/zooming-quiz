@@ -22,10 +22,10 @@ export function QuestionWindow (props){
     
     const { width, height } = useWindowSize();
     const confettiSource = {
-        x: width / 2,
-        y: height / 4,
+        x: 0,
+        y: 0,
         h: 0,
-        w: 0,
+        w: width,
     }
 
     var disabledButton = isClickable? "": " disabled"
@@ -33,9 +33,9 @@ export function QuestionWindow (props){
         <>
         <Confetti
             run={isCorrect !== null && isCorrect}
-            tweenDuration={200}
+            tweenDuration={100}
             recycle={false}
-            gravity={0.2}
+            gravity={0.5}
             confettiSource={confettiSource}
             onConfettiComplete={(confettiClass) => {
                 confettiClass.reset()
@@ -49,7 +49,7 @@ export function QuestionWindow (props){
                 <div className='card-header-btns'>
                 <button
                     className={`sn-section-item button` + disabledButton} 
-                    tabIndex={0}
+                    tabIndex={-1}
                     onClick={onClickRepeatQuestion}
                 >
                     <IconMegaphoneLoudFill style={{pointerEvents: 'none'}} />
@@ -57,12 +57,12 @@ export function QuestionWindow (props){
                 <button
                     className={`sn-section-item button` + disabledButton} 
                     onClick={onClickSkip}
-                    tabIndex={0}
+                    tabIndex={-1}
                 >Пропустить</button>
                 <button 
-                    className='sn-section-item button'
+                    className={'sn-section-item button' + disabledButton}
                     onClick={onClickStartGame}
-                    tabIndex={0}
+                    tabIndex={-1}
                 >
                     <IconRefresh style={{pointerEvents: 'none'}}/>
                 </button>
@@ -121,7 +121,7 @@ function Button({
             id={id}
             className={"sn-section-item answer-item " + appendClass}
             disabled={isClickable}
-            tabIndex={0}
+            tabIndex={-1}
         > {text}
         </li>
     )

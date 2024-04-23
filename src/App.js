@@ -8,7 +8,7 @@ import QuestionWindow from "./HomePage/QuestionWindow";
 import Result from "./HomePage/Result";
 
 
-const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI1MGE5NThmZi04ZjdlLTQxNTUtYmEwNy0yMjE0MzEzNGVmMDAiLCJzdWIiOiJjZGE2NDZlMDc5NDA3MjNkMDk1NDQ5ZjRiNjNjNDc1ZGMyNzBlZTExNmEwN2Q0ZWFjNGNlYzY2ZGRiMmZmYzlhNTM5YmU5MjcwMDQyNjI5OCIsImlzcyI6IktFWU1BU1RFUiIsImV4cCI6MTcxMzYyOTQ1MCwiYXVkIjoiVlBTIiwidXNyIjoiOGM3ODAyMDgtYWEzMC00N2EwLWJlZWYtYTAzMzhiMjk3OWVhIiwiaWF0IjoxNzEzNTQzMDQwLCJzaWQiOiI4NmFkZWYzYS05NTEwLTRjYTgtYTc3ZC1iYmU0MTNmZmRjZmMifQ.Wm26q7KThqWQaqng3WYRH1AiJ97B7QliEQnL85dv-3yUyvUaWOtihA9xxjIoYGsBpWi0awm4HAiDK5c5s-KU3HkA1NK8cW9xtewkhujWn_PwMYwiHMWcMnWAId8mVaOletJuXXLAOuJ9qizSAJ2a8MihSB5b45fG6_ufXk8NMm4qI0mxs0NCvN_ejc_s7Sjnq4gSMOnHK3NrIp0WTeaqHY8HN34SMBaQrK5rx_bstruNOZj-4lqUQvARSk89qAJwrwEayUvuWU-EWpPGAhB7e-PeHgMELP5BqlxCopcV6bBMmz4t0uJOt6zqL9iTYrVJfGEV47j1NgwyAgQVsfggKjhu5JO18if3IGysFlBHn8BawZqFWdvECfxNsTIZWaJy2p0VNVEfuAQ9SoEVxOc7fXmmYcKhe1wSXDORuSfo8F-RbfJ1n3e1gsK8eWkGNHGBcjn-qcfD6viC20tdMD3DyYDahzcaLqGHX0RIHDdq-AfXTyCdukhp_It80KrDt4iob7_p_p5eIm0yzJVcg6ycLDheQ_rkmYPVsI7w6wojrdBmmLC-5Q2Ug2SumKcRvBj-vrkJ7qGJfb2vO_o5SX-Z8j9A-PiV5ufbdluRYzAHkEVGqapJelqpTUKXO54dA4L5ENP1BZdPitOxgh-B3J9bqdbPu45Dns0GjLlWZAd7dxo"
+const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiIyMTExMjFlNS1hYjg4LTQ2NjktOTRkMS0zYTI5NzVlZGE4ZjMiLCJzdWIiOiJjZGE2NDZlMDc5NDA3MjNkMDk1NDQ5ZjRiNjNjNDc1ZGMyNzBlZTExNmEwN2Q0ZWFjNGNlYzY2ZGRiMmZmYzlhNTM5YmU5MjcwMDQyNjI5OCIsImlzcyI6IktFWU1BU1RFUiIsImV4cCI6MTcxMzk0NTU5NywiYXVkIjoiVlBTIiwidXNyIjoiOGM3ODAyMDgtYWEzMC00N2EwLWJlZWYtYTAzMzhiMjk3OWVhIiwiaWF0IjoxNzEzODU5MTg3LCJzaWQiOiJjZTRiNjQ0YS1kYTMzLTQ4MDQtYjgyYS1iM2EwODZmOThkZDcifQ.fkz8KcGyu1lKhoxsJE6LW7-2QxfMU2fmj7x2FEgkZ0ICzR2QLA5lk3BfCiaUxH_J667XaGnpVMsxzXSPRDE1N6Whaf0zf5cX0UcHDkj-K8t_PDD6FSvehebgyIWyNyfLKG8pcwcGp_w-Ta78wnH5NR7y93DzEcIpsheRty3C-pnDXJiY4gOCE7LSlsvUOP6-EIAB-D8PMwX-Z1QPPKEU_RvCFmgTwENqEge9upIUxRgHNr4l6dKmfJPoBVHdu4RamfwNROciVetxQ-5D0quHolDg9cypFRISJlXOeulNyr7exlqYRbpXmK7oRq3LMvZkeAKogeRcviJ1sJAJ_d5uXQv2heHpWXr9V63OwZ3Cyvo0BYsU6cH67YboBgfnNitWze0DmIv2wdVb5r0mOFGySpuWaPzCylFgb7n2vN7v3hkwRQj7JnyYyLxweMxhoGhi8fQS9MwKqmKRicAkuZRsA3p-EuU13Ha5dvpGe-_-V3JhUMYkbVMnZdswi4_Pk1RWAG-bwaGTOoPWb2y-rfTShuLz_3Fem9OMl6wAeYJDRicI_o25F-qQ4bIouFtIs_cFp-3D8KXcOTOE6ebEiRm-NbOApxW3MazhJQbgI1Qc8h0idCC9iP8S2HCnWtb4B4fSjW_2BBhndsJRkUfYEPlOjY3-6g3kK9O9iKUMQ2Tta14"
 
 function initializeAssistant(getState){
   if (typeof window === 'undefined') {
@@ -18,7 +18,7 @@ function initializeAssistant(getState){
   if (process.env.NODE_ENV === "development"){
       return createSmartappDebugger({
           token: token,
-          initPhrase: "Включи Квиз о Мире",
+          initPhrase: "Включи Квиз: Бренды и Природа",
           getState,
       })
   }
@@ -207,14 +207,14 @@ export class App extends React.Component {
     }
 
     onClickSkip = (_) => {
+      this.assistant.cancelTts()
       this.setState({
         isClickable : true,
         answerIdx: null,
         isCorrect: null,
         step: this.state.step + 1
       });
-      this.assistant.cancelTts()
-
+      
       let next_question = "quest" + (this.state.step + 2).toString()
       this.assistant.sendData({action : {action_id : next_question}})
     }
@@ -252,6 +252,7 @@ export class App extends React.Component {
               </div>
               
               <button
+                tabIndex={-1}
                 className='sn-section-item button'
                 onClick={this.onClickStartGameButton}
               >

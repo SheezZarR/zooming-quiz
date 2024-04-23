@@ -27,7 +27,9 @@ function Result({brandCorrect, natureCorrect, onClickStartGame}){
                 <button 
                     style={{fontSize: 1 + 'rem', borderRadius: 5 + 'px'}} 
                     className='sn-section-item button skip-button'
-                    onClick={onClickStartGame}>Начать сначала</button>
+                    onClick={onClickStartGame}
+                    tabIndex={-1}
+                >Начать сначала</button>
             </div>
         </div>
     )
