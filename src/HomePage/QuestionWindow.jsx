@@ -32,6 +32,7 @@ export function QuestionWindow (props){
     return (
         <>
         <Confetti
+            style={{display: (isCorrect !== null && isCorrect)? "block" : "none" }}
             run={isCorrect !== null && isCorrect}
             tweenDuration={100}
             recycle={false}
