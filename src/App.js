@@ -52,6 +52,8 @@ export class App extends React.Component {
         showQuestions: false,
       };
 
+      console.log("App.constructor:", this.state)
+
       // Fuzzy searcher
       this.fuse = new FuseIndex(
         [], 
@@ -76,9 +78,10 @@ export class App extends React.Component {
         }
         
       });
-      this.assistant.on("start", (event) => {
-          console.log(`assistant.on(start)`, event);
-      });
+
+      this.assistant.cancelTts();
+      this.assistant.sendData({action : {action_id : "start"}})
+
     }
     
     startGame(){
